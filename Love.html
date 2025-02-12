@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Page</title>
+    <style>
+        body {
+            background-color: pink;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            font-size: 2em;
+            animation: moveText 2s infinite alternate;
+            position: relative;
+        }
+        @keyframes moveText {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        .hidden {
+            display: none;
+        }
+        input, button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 1em;
+        }
+        .credit {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.8em;
+        }
+        .emoji-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 2em;
+            animation: float 3s infinite alternate ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="question">น้องเอยรึป่าว?</h1>
+    <div id="buttons">
+        <button onclick="yesClicked()">Yes ใช่แล่วว</button>
+        <button onclick="noClicked()">No</button>
+    </div>
+    <div id="password-section" class="hidden">
+        <p>ทักหาพี่โต้ เพื่อรับรหัสสิ</p>
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="checkPassword()">เช็ครหัสผ่านสิ๊</button>
+    </div>
+    <p class="credit">By Johnny Jennison (Atichart Somsak) - NeverArf (NVA)</p>
+    <audio autoplay loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+    </audio>
+    
+    <div class="emoji-container" id="emoji-container"></div>
+    
+    <script>
+        function yesClicked() {
+            document.getElementById("question").innerText = "ทักหาพี่โต้ เพื่อรับรหัสสิ";
+            document.getElementById("buttons").classList.add("hidden");
+            document.getElementById("password-section").classList.remove("hidden");
+        }
+        
+        function noClicked() {
+            document.getElementById("question").innerText = "งั้นคุณเป็นใคร คุณไม่มีสิทธิที่จะเข้าสู่เว็บไซต์นี้ด้วยซ้ำ";
+            document.getElementById("buttons").classList.add("hidden");
+        }
+        
+        function checkPassword() {
+            let password = document.getElementById("password").value;
+            if (password === "230208") {
+                document.getElementById("question").innerText = "Happy Valentine's Day, Naa Aoeyyyy! >///< Ferrero Rocher เป็นยังไงทักมาบอกด้วยนะ<3";
+                document.getElementById("password-section").classList.add("hidden");
+                addEmojis();
+            } else {
+                alert("รหัสผ่านไม่ถูกต้อง ลองใหม่อีกครั้ง!");
+            }
+        }
+        
+        function addEmojis() {
+            const emojiContainer = document.getElementById("emoji-container");
+            const emojis = ['❤️', '💖', '💘', '💕', '💓', '💞', '💗', '💙', '💛', '💜', '💚'];
+            for (let i = 0; i < 20; i++) {
+                let emoji = document.createElement("div");
+                emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.classList.add("emoji");
+                emoji.style.left = Math.random() * 100 + "vw";
+                emoji.style.top = Math.random() * 100 + "vh";
+                emoji.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                emojiContainer.appendChild(emoji);
+            }
+        }
+    </script>
+</body>
+</html>
